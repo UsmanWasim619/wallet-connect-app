@@ -41,27 +41,34 @@ const IndicesDetailsScreen = () => {
 
   const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } =
     Dimensions.get("window");
-  // new
-  const CURVE_START = { x: SCREEN_WIDTH * 0.3, y: SCREEN_HEIGHT * 0.9 };
-  const CURVE_END = { x: SCREEN_WIDTH * 0.3, y: SCREEN_HEIGHT * 0.18 };
-  const CURVE_CONTROL1 = { x: SCREEN_WIDTH * 0.5, y: SCREEN_HEIGHT * 0.6 };
-  const CURVE_CONTROL2 = { x: SCREEN_WIDTH * 0.7, y: SCREEN_HEIGHT * 0.3 };
 
-  // final path2 --------------------
-  const path2 = `M ${CURVE_START.x + 40} ${CURVE_START.y} C ${
-    CURVE_CONTROL1.x + 50
-  } ${CURVE_CONTROL1.y + 100} ${CURVE_CONTROL2.x + 45} ${
-    CURVE_CONTROL2.y + 40
-  } ${CURVE_END.x} ${CURVE_END.y - 10}`;
+  // Define the paths using relative coordinates
+  const purplePath = `
+    M ${SCREEN_WIDTH * 0.3},${SCREEN_HEIGHT * 0.18}
+    C ${SCREEN_WIDTH * 0.5},${SCREEN_HEIGHT * 0.3}
+      ${SCREEN_WIDTH * 0.7},${SCREEN_HEIGHT * 0.6}
+      ${SCREEN_WIDTH * 0.3},${SCREEN_HEIGHT * 0.9}
+  `;
 
-  // old
-  const CURVE_START_O = { x: SCREEN_WIDTH * 0.3, y: SCREEN_HEIGHT * 0.18 };
-  const CURVE_END_O = { x: SCREEN_WIDTH * 0.3, y: SCREEN_HEIGHT * 0.9 };
+  const cyanPath = `
+    M ${SCREEN_WIDTH * 0.3 + 40},${SCREEN_HEIGHT * 0.9}
+    C ${SCREEN_WIDTH * 0.5 + 50},${SCREEN_HEIGHT * 0.6 + 100}
+      ${SCREEN_WIDTH * 0.7 + 45},${SCREEN_HEIGHT * 0.3 + 40}
+      ${SCREEN_WIDTH * 0.3},${SCREEN_HEIGHT * 0.18 - 10}
+  `;
 
-  const CURVE_CONTROL1_O = { x: SCREEN_WIDTH * 0.5, y: SCREEN_HEIGHT * 0.3 };
-  const CURVE_CONTROL2_O = { x: SCREEN_WIDTH * 0.7, y: SCREEN_HEIGHT * 0.6 };
-  const path1_O = `M ${CURVE_START_O.x} ${CURVE_START_O.y} C ${CURVE_CONTROL1_O.x} ${CURVE_CONTROL1_O.y} ${CURVE_CONTROL2_O.x} ${CURVE_CONTROL2_O.y} ${CURVE_END_O.x} ${CURVE_END_O.y}`;
+  const grayPath1 = `
+    M ${SCREEN_WIDTH * 0.05},0
+    C ${SCREEN_WIDTH * 0.7},${SCREEN_HEIGHT * 0.375}
+      ${SCREEN_WIDTH * 0.6},${SCREEN_HEIGHT * 0.6875}
+      ${SCREEN_WIDTH * 0.19},${SCREEN_HEIGHT}
+  `;
 
+  const grayPath2 = `
+    M ${SCREEN_WIDTH * 0.10 + 40},0
+    C ${SCREEN_WIDTH * 0.7 + 40},${SCREEN_HEIGHT * 0.375}
+      ${SCREEN_WIDTH * 0.6 + 30},${SCREEN_HEIGHT * 0.6875}
+      ${SCREEN_WIDTH * 0.19 + 40},${SCREEN_HEIGHT}`;
   return (
     <View style={styles.container}>
       <Svg height="100%" width="100%" style={styles.curveContainer}>
@@ -72,34 +79,21 @@ const IndicesDetailsScreen = () => {
           </LinearGradient>
         </Defs>
         <AnimatedPath
-          d={path1_O}
+          d={purplePath}
           stroke="url(#gradient1)"
           strokeWidth="13"
           fill="none"
           animatedProps={animatedProps1}
         />
-
-        <Path
-          d="M10,0 C290,300 250,550 50,800"
-          stroke="#A1A1A157"
-          strokeWidth="1"
-          fill="none"
-        />
-
+        <Path d={grayPath1} stroke="#A1A1A157" strokeWidth="1" fill="none" />
         <AnimatedPath
-          d={path2}
+          d={cyanPath}
           stroke="#01A2CB"
           strokeWidth="13"
           fill="none"
           animatedProps={animatedProps2}
         />
-
-        <Path
-          d={`M${10 + 40},0 C${290 + 40},300 ${250 + 30},550 ${50 + 40},800`}
-          stroke="#A1A1A157"
-          strokeWidth="1"
-          fill="none"
-        />
+        <Path d={grayPath2} stroke="#A1A1A157" strokeWidth="1" fill="none" />
       </Svg>
 
       <View style={styles.contentContainer}>

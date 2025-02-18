@@ -1,5 +1,5 @@
 const initialState = {
-  isVisible: true, // Default state
+  isVisible: false, // Default state
 };
 
 const HideAndShowReducer = (state = initialState, action) => {

@@ -13,6 +13,7 @@ import TabMenu from "../../../components/TabMenu";
 import HorizontalLine from "../../../components/HorizontalLine";
 import { GradientHOC } from "../../../HOC/GradientHOC";
 import Glassmorphism from "../../../components/Glassmorphism";
+import CommonHeader from "../../../components/CommonHeader";
 
 export const AllIndicesScreen = ({ navigation }) => {
   return (
@@ -33,19 +34,15 @@ export const AllIndicesScreen = ({ navigation }) => {
         <StatusBar style="light" />
 
         {/* Header */}
-        {/* <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton}>
-          <Ionicons name="chevron-back" size={24} color="white" />
-          <Text style={styles.headerText}>All Indices</Text>
-        </TouchableOpacity>
-      </View> */}
+
+        <CommonHeader screenName={"All Indices"} />
 
         {/* Navigation Tabs */}
 
-        {/* <TabMenu
-        data={["PERFORMANCE", "OVERVIEW", "RESEARCH"]}
-        selected={"OVERVIEW"}
-      /> */}
+        <TabMenu
+          data={["PERFORMANCE", "OVERVIEW", "RESEARCH"]}
+          selected={"OVERVIEW"}
+        />
 
         {/* Content Card */}
         <Glassmorphism height={129} style={styles.card}>
@@ -83,7 +80,6 @@ export const AllIndicesScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: '#1a1a1a',
     paddingHorizontal: 10,
   },
   header: {

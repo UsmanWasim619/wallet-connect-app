@@ -1,17 +1,13 @@
 import React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
 
 const CommonButton = ({
   onPress,
   title,
   width, // Get width from props
   gradientColors = ["#95c11f", "#95c11fad"],
-  textSize = hp("1.9%"),
+  textSize = 13,
 }) => {
   return (
     <TouchableOpacity
@@ -54,7 +50,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white", // default text color
-    fontSize: hp("1.9%"),
+    fontSize: 13,
     fontWeight: "700",
   },
 });

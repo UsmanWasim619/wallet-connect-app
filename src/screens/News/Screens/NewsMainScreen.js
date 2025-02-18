@@ -12,6 +12,7 @@ import HorizontalLine from "../../../components/HorizontalLine";
 import { NewsItem } from "./NewsItems";
 import { NewsCard } from "./NewsCard";
 import { GradientHOC } from "../../../HOC/GradientHOC";
+import CommonHeader from "../../../components/CommonHeader";
 // import { TrendingCard, NewsItem } from "../";
 
 const NewsMainScreen = () => {
@@ -79,46 +80,29 @@ const NewsMainScreen = () => {
       image:
         "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-1ght3HnIpzoa8XscnYn9d7nCrf5olm.png",
     },
-    
   ];
 
   return (
-    <ScrollView style={styles.container}>
-      <View
-        style={{
-          width: "100%",
-          height: 50,
-          // alignItems: "center",
-          marginVertical: 10,
-          padding: 10,
-          justifyContent: "flex-start",
-        }}
-      >
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Feather name="chevron-left" size={24} color="#fff" />
-          <Text style={styles.backText}>News</Text>
-        </TouchableOpacity>
-      </View>
-
-      <Text style={styles.sectionTitle}>Trending</Text>
-      <View style={styles.trendingGrid}>
-        {/* {trendingItems.map((item) => ( */}
-        {/* ))} */}
-      </View>
-      <NewsCard {...trendingItems[0]} />
-      <View style={{ marginTop: 20, marginBottom: 10 }}>
-        <HorizontalLine />
-      </View>
-      <Text style={styles.sectionTitle}>Other Market News</Text>
-      <View style={styles.newsList}>
-        {newsItems.map((item) => (
-          <NewsItem key={item.id} {...item} />
-        ))}
-      </View>
-    </ScrollView>
+    <>
+      <CommonHeader screenName={"News"} />
+      <ScrollView style={styles.container}>
+        <Text style={styles.sectionTitle}>Trending</Text>
+        <View style={styles.trendingGrid}>
+          {/* {trendingItems.map((item) => ( */}
+          {/* ))} */}
+        </View>
+        <NewsCard {...trendingItems[0]} />
+        <View style={{ marginTop: 20, marginBottom: 10 }}>
+          <HorizontalLine />
+        </View>
+        <Text style={styles.sectionTitle}>Other Market News</Text>
+        <View style={styles.newsList}>
+          {newsItems.map((item) => (
+            <NewsItem key={item.id} {...item} />
+          ))}
+        </View>
+      </ScrollView>
+    </>
   );
 };
 

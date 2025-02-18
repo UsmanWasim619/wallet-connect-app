@@ -9,6 +9,7 @@ import {
   Modal,
   TouchableOpacity,
   Platform,
+  ScrollView,
 } from "react-native";
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
@@ -17,6 +18,7 @@ import CommonButton from "../../../components/CommonButton";
 import { GradientHOC } from "../../../HOC/GradientHOC";
 import { StatusBar } from "expo-status-bar";
 import WatchlistModal from "../../../components/WatchlistModal";
+import CommonHeader from "../../../components/CommonHeader";
 
 // Sample stock data
 const stocks = [
@@ -115,25 +117,8 @@ const WatchlistScreen = ({ navigation }) => {
   const handleClose = () => setModalVisible(false);
 
   return (
-    <>
-      <View
-        style={{
-          width: "100%",
-          height: 50,
-          // alignItems: "center",
-          marginVertical: 10,
-          padding: 10,
-          justifyContent: "flex-start",
-        }}
-      >
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Feather name="chevron-left" size={24} color="#fff" />
-          <Text style={styles.backText}>Watchlist</Text>
-        </TouchableOpacity>
-      </View>
+    <ScrollView>
+      <CommonHeader screenName={"WaitList"} />
       <View style={styles.waitListContainer}>
         <View style={styles.searchHeader}>
           <BlurView
@@ -182,7 +167,7 @@ const WatchlistScreen = ({ navigation }) => {
 
         <WatchlistModal visible={modalVisible} onClose={handleClose} />
       </View>
-    </>
+    </ScrollView>
   );
 };
 
@@ -210,63 +195,6 @@ const Tabs = ({ toggleWaitListModal }) => (
     <Text style={styles.waitListName}>My Watchlist</Text>
   </View>
 );
-
-// function WatchlistModal({ visible, onClose, onCreate }) {
-//   const [watchlistName, setWatchlistName] = useState("");
-
-//   const handleCreate = () => {
-//     if (watchlistName.trim()) {
-//       onCreate(watchlistName);
-//       setWatchlistName("");
-//       onClose();
-//     }
-//   };
-
-//   return (
-//     <Modal
-//       animationType="fade"
-//       transparent={true}
-//       visible={visible}
-//       onRequestClose={onClose}
-//     >
-//       <Pressable style={styles.overlay} onPress={onClose}>
-//         <View
-//           style={styles.modalContainer}
-//           onStartShouldSetResponder={() => true}
-//         >
-//           <Glassmorphism style={styles.modalContent} height={260} width={280}>
-//             {/* Close Button */}
-//             <TouchableOpacity style={styles.closeButton} onPress={onClose}>
-//               <Text style={styles.closeButtonText}>×</Text>
-//             </TouchableOpacity>
-
-//             {/* Modal Header */}
-//             <Text style={styles.title}>New Watchlist</Text>
-//             <Text style={styles.subtitle}>Enter a name for this watchlist</Text>
-
-//             {/* Input Field */}
-//             <TextInput
-//               style={styles.input}
-//               placeholder="Watchlist name"
-//               placeholderTextColor="#666"
-//               value={watchlistName}
-//               onChangeText={setWatchlistName}
-//               autoFocus={true}
-//               maxLength={80}
-//             />
-//             {/* Create Button */}
-//             <CommonButton
-//               width={"100%"}
-//               style={styles.createButton}
-//               title={"Create"}
-//               onPress={handleCreate}
-//             />
-//           </Glassmorphism>
-//         </View>
-//       </Pressable>
-//     </Modal>
-//   );
-// }
 
 const styles = StyleSheet.create({
   searchHeader: {
@@ -493,6 +421,36 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontSize: 16,
     fontWeight: "600",
+  },
+  topBar: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    height: 44,
+    marginTop: "10%",
+  },
+  topBar2: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    height: 44,
+    marginTop: 20,
+    width: "100%",
+    backgroundColor: "#00000000",
+  },
+  topBarIcons: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    alignContent: "center",
+    gap: 10,
+    width: "100%",
+  },
+  iconButton: {
+    padding: 8,
+    marginLeft: 8,
   },
 });
 

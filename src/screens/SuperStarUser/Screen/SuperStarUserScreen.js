@@ -8,64 +8,69 @@ import {
   TouchableOpacity,
   Pressable,
   Image,
+  ScrollView,
 } from "react-native";
 import Glassmorphism from "../../../components/Glassmorphism";
 import CommonButton from "../../../components/CommonButton";
 import { GradientHOC } from "../../../HOC/GradientHOC";
+import CommonHeader from "../../../components/CommonHeader";
 
 const SuperStarUser = ({ navigation }) => {
   return (
-    <View style={styles.container}>
-      <Glassmorphism height={129} style={styles.card}>
-        {/* Header Section */}
-        <View style={styles.header}>
-          <View style={styles.leftSection}>
-            <Image
-              source={{
-                uri: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-zadESq63AeTrxwqWC3rVAOGlbWlZTc.png",
-              }}
-              style={styles.profileImage}
-            />
-            <View style={styles.nameSection}>
-              <Text style={styles.name}>Shreya Chadda</Text>
-              <Text style={styles.companyName}>Company Name</Text>
+    <ScrollView>
+      <CommonHeader screenName={"Superstar Users"} />
+      <View style={styles.container}>
+        <Glassmorphism height={129} style={styles.card}>
+          {/* Header Section */}
+          <View style={styles.header}>
+            <View style={styles.leftSection}>
+              <Image
+                source={{
+                  uri: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-zadESq63AeTrxwqWC3rVAOGlbWlZTc.png",
+                }}
+                style={styles.profileImage}
+              />
+              <View style={styles.nameSection}>
+                <Text style={styles.name}>Shreya Chadda</Text>
+                <Text style={styles.companyName}>Company Name</Text>
+              </View>
+            </View>
+            <View style={styles.rightSection}>
+              <View style={styles.dateSection}>
+                <Text style={styles.dateLabel}>
+                  Date <Text style={styles.date}>17-01-25</Text>
+                </Text>
+                <Text style={styles.date} />
+              </View>
+              <Text style={styles.holdings}>Holdings (%)</Text>
             </View>
           </View>
-          <View style={styles.rightSection}>
-            <View style={styles.dateSection}>
-              <Text style={styles.dateLabel}>
-                Date <Text style={styles.date}>17-01-25</Text>
-              </Text>
-              <Text style={styles.date} />
+          <HorizontalLine />
+          {/* Bottom Section */}
+          <View style={styles.bottomSection}>
+            <View style={styles.bottomItem}>
+              <Text style={styles.bottomLabel}>Total Profit</Text>
+              <Text style={styles.bottomValue}>₹1,34,056</Text>
             </View>
-            <Text style={styles.holdings}>Holdings (%)</Text>
+            <View style={styles.bottomItem}>
+              <Text style={styles.bottomLabel}>Lots</Text>
+              <Text style={styles.bottomValue}>03</Text>
+            </View>
+            <View style={styles.bottomItem}>
+              <Text style={styles.bottomLabel}>Total Amt</Text>
+              <Text style={styles.bottomValue}>₹1,34,056</Text>
+            </View>
           </View>
-        </View>
-        <HorizontalLine />
-        {/* Bottom Section */}
-        <View style={styles.bottomSection}>
-          <View style={styles.bottomItem}>
-            <Text style={styles.bottomLabel}>Total Profit</Text>
-            <Text style={styles.bottomValue}>₹1,34,056</Text>
-          </View>
-          <View style={styles.bottomItem}>
-            <Text style={styles.bottomLabel}>Lots</Text>
-            <Text style={styles.bottomValue}>03</Text>
-          </View>
-          <View style={styles.bottomItem}>
-            <Text style={styles.bottomLabel}>Total Amt</Text>
-            <Text style={styles.bottomValue}>₹1,34,056</Text>
-          </View>
-        </View>
-      </Glassmorphism>
+        </Glassmorphism>
 
-      {/* <CommonButton
+        {/* <CommonButton
         title={"next"}
         onPress={() => {
           navigation.navigate("StocksListScreen");
         }}
       /> */}
-    </View>
+      </View>
+    </ScrollView>
   );
 };
 const HorizontalLine = () => (

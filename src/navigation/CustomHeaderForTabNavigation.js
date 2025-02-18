@@ -26,34 +26,10 @@ const CustomHeaderForTabNavigation = ({ navigation, showBack = false }) => {
 
   useEffect(() => {
     setShowHeader(showBack);
-  }, []);
+  }, [showBack]);
 
-  {
-    /* {showHeader && (
-    <View style={{ width: "100%" }}>
-      <TouchableOpacity
-        style={styles.backButton}
-        onPress={() => navigation.goBack()}
-      >
-        <Feather name="chevron-left" size={24} color="#fff" />
-        <Text style={styles.backText}>All Indices</Text>
-      </TouchableOpacity>
-    </View>
-  )} */
-  }
   const renderTopBar = () => (
     <>
-      {/* {showHeader && (
-        <View style={{ width: "100%", height: 50,alignItems:"center" }}>
-          <TouchableOpacity
-            style={styles.backButton}
-            onPress={() => navigation.goBack()}
-          >
-            <Feather name="chevron-left" size={24} color="#fff" />
-            <Text style={styles.backText}>All Indices</Text>
-          </TouchableOpacity>
-        </View>
-      )} */}
       {!showHeader && (
         <View style={styles.topBar}>
           <View style={styles.topBarIcons}>
@@ -139,6 +115,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     height: 44,
     marginTop: 20,
+  },
+  topBar2: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    height: 44,
+    marginTop: 20,
+    width: "100%",
+    backgroundColor: "#00000000",
   },
   topBarIcons: {
     flexDirection: "row",

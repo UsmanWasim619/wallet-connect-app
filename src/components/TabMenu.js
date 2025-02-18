@@ -118,6 +118,7 @@ import {
   Text,
 } from "react-native";
 import HorizontalLine from "./HorizontalLine";
+import { useDispatch } from "react-redux";
 
 const { width } = Dimensions.get("window");
 const ITEM_WIDTH = 100;
@@ -127,11 +128,16 @@ export default function TabMenu({
   selected = "ALL",
 }) {
   const [selectedTab, setSelectedTab] = useState(selected);
+  console.log("selectedTab: ", selectedTab);
   const scrollViewRef = useRef(null);
   const [scrollX] = useState(new Animated.Value(0));
 
+  const dispatch = useDispatch();
+
   const handleTabPress = (tab, index) => {
     setSelectedTab(tab);
+    dispatch({ type: "SET_SELECTED_TAB", payload: tab });
+
     const newScrollPosition = index * ITEM_WIDTH - width / 2 + ITEM_WIDTH / 2;
     scrollViewRef.current?.scrollTo({ x: newScrollPosition, animated: true });
   };

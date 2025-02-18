@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign, Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import ProductsComponent from "./HomeComponents/ProductsComponent";
 import CommodityCardComponents from "./HomeComponents/CommodityCardComponents";
 import MarketMoversComponents from "./HomeComponents/MarketMoversComponents";
@@ -14,6 +14,8 @@ import { GradientHOC } from "../../HOC/GradientHOC";
 import Glassmorphism from "../../components/Glassmorphism";
 import DiscoverComponent from "./HomeComponents/DiscoverComponent";
 import HotDealsComponent from "./HomeComponents/HotDealComponent";
+import CustomHeaderForTabNavigation from "../../navigation/CustomHeaderForTabNavigation";
+import TabMenu from "../../components/TabMenu";
 
 const HomeScreen = ({ navigation }) => {
   const products = [
@@ -124,10 +126,32 @@ const HomeScreen = ({ navigation }) => {
       change: "144.05 (+13.76%)",
     },
   ];
-
+  const mainTabs = ["NIFTY", "INDIAVIX", "FINNIFTY", "MIDCPNIFTY", "SENSEX"];
   return (
     <ScrollView>
+      {/* Header */}
+      {/* <CustomHeaderForTabNavigation navigation={navigation} showBack={false} /> */}
+      <View style={{ backgroundColor: "#000" }}>
+        <View style={styles.topBar}>
+          <View style={styles.topBarIcons}>
+            <TouchableOpacity style={styles.iconButton}>
+              <Feather name="search" size={20} color="#fff" />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.iconButton}>
+              <Feather name="briefcase" size={20} color="#fff" />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.iconButton}>
+              <Feather name="user" size={20} color="#fff" />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <TabMenu data={mainTabs} selected={"FINNIFTY"} />
+      </View>
+
+      {/* Header end */}
+
       {/* MainSvg */}
+
       <View
         style={{
           justifyContent: "center",
@@ -154,7 +178,9 @@ const HomeScreen = ({ navigation }) => {
             Explore Indices
           </Text>
         </View>
+
         <DiscoverComponent navigation={navigation} />
+
         <View
           style={{
             justifyContent: "center",
@@ -252,6 +278,37 @@ const styles = StyleSheet.create({
     height: 250,
     boxShadow: "none",
     backgroundColor: "#00000000",
+  },
+
+  topBar: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    height: 44,
+    marginTop: "10%",
+  },
+  topBar2: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    height: 44,
+    marginTop: 20,
+    width: "100%",
+    backgroundColor: "#00000000",
+  },
+  topBarIcons: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    alignContent: "center",
+    gap: 10,
+    width: "100%",
+  },
+  iconButton: {
+    padding: 8,
+    marginLeft: 8,
   },
 });
 

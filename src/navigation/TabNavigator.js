@@ -9,6 +9,7 @@ import CustomHeaderForTabNavigation from "./CustomHeaderForTabNavigation";
 import WatchlistScreen from "../screens/WatchLists/Screen/WatchlistScreen";
 import ExploreIndicesStackNavigation from "../screens/ExploreIndicesScreen/ExploreIndicesStackNavigation";
 import NewsStackNavigation from "../screens/News/NewsStackNavigation";
+import IndicesDetailsScreen from "../screens/ExploreIndicesScreen/Screen/IndicesDetailsScreen";
 
 const { width } = Dimensions.get("window");
 const TAB_WIDTH = width / 4;
@@ -101,8 +102,8 @@ const TabsNavigations = () => {
       <Tab.Navigator
         tabBar={(props) => <CustomTabBar {...props} />}
         screenOptions={{
-          //   headerShown: false,
-          header: () => <CustomHeaderForTabNavigation showBack={showHeader} />,
+          headerShown: false,
+          // header: () => <CustomHeaderForTabNavigation showBack={showHeader} />,
         }}
       >
         <Tab.Screen
@@ -110,9 +111,7 @@ const TabsNavigations = () => {
           component={ExploreIndicesStackNavigation}
           options={{
             tabBarIcon: ({ color }) => {
-              useEffect(() => {
-                setShowheader(false);
-              }, []);
+            
               return (
                 <Svg
                   width={24}
@@ -142,9 +141,7 @@ const TabsNavigations = () => {
           component={WatchlistScreen}
           options={{
             tabBarIcon: ({ color }) => {
-              useEffect(() => {
-                setShowheader(true);
-              }, []);
+            
               return <Feather name="bookmark" size={24} color={color} />;
             },
           }}
@@ -152,7 +149,7 @@ const TabsNavigations = () => {
 
         <Tab.Screen
           name="Portfolio"
-          component={PortfolioScreen}
+          component={IndicesDetailsScreen}
           options={{
             tabBarIcon: ({ color }) => (
               <Feather name="briefcase" size={24} color={color} />
@@ -164,9 +161,7 @@ const TabsNavigations = () => {
           component={NewsStackNavigation}
           options={{
             tabBarIcon: ({ color }) => {
-              useEffect(() => {
-                setShowheader(true);
-              }, []);
+         
               return <Feather name="message-circle" size={24} color={color} />;
             },
           }}

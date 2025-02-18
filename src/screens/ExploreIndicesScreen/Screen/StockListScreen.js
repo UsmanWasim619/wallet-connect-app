@@ -15,6 +15,7 @@ import CommonButton from "../../../components/CommonButton";
 import TabMenu from "../../../components/TabMenu";
 import { GradientHOC } from "../../../HOC/GradientHOC";
 import HorizontalLine from "../../../components/HorizontalLine";
+import CommonHeader from "../../../components/CommonHeader";
 
 const menuItems = ["GAINERS", "52W HIGH", "ALL", "52W LOW", "TOP LOSERS"];
 
@@ -144,9 +145,10 @@ const StocksListScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <CommonHeader screenName={"Stocks"} />
       <StatusBar barStyle="light-content" />
-      {renderHeader()}
-      {/* <TabMenu data={menuItems} /> */}
+      {/* {renderHeader()} */}
+      <TabMenu data={menuItems} />
       {renderListHeader()}
       <FlatList
         data={stocksData}

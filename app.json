@@ -13,7 +13,8 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.tradingapp"
     },
     "android": {
       "adaptiveIcon": {
@@ -24,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b99ed193-498b-4815-86c4-40e8ba796ed9"
+      }
+    },
+    "owner": "ift"
   }
 }
