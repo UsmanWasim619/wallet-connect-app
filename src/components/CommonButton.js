@@ -6,7 +6,7 @@ const CommonButton = ({
   onPress,
   title,
   width, // Get width from props
-  gradientColors = ["#95c11f", "#95c11fad"],
+  gradientColors = ["#017482", "#017482"],
   textSize = 13,
 }) => {
   return (

@@ -6,6 +6,7 @@ import OTPScreen from "../screens/auth/OTPScreen";
 import TabsNavigations from "./TabNavigator";
 import { connect, useDispatch } from "react-redux";
 import { AxiosInterceptors } from "../interceptors/AxiosInterceptor";
+import SignUpScreen from "../screens/auth/SignUpScreen";
 
 const Stack = createStackNavigator();
 
@@ -19,9 +20,11 @@ const StackNavigator = ({ token, loader, isNetConnected, user }) => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Dashboard" component={TabsNavigations} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
+        <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+
         <Stack.Screen name="OTPScreen" component={OTPScreen} />
+        <Stack.Screen name="Dashboard" component={TabsNavigations} />
       </Stack.Navigator>
     </NavigationContainer>
   );

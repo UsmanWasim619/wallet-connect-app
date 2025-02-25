@@ -26,7 +26,7 @@ export const GradientHOC = (Component) => {
         </LinearGradient> */}
         <ImageBackground
           style={styles.gradient}
-          source={require("../../assets/Auth_Background.png")}
+          source={require("../../assets/png/auth-bg.png")}
         >
           <Component {...props} />
         </ImageBackground>

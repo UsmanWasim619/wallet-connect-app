@@ -50,53 +50,47 @@ const OtpScreen = ({ navigation }) => {
             }}
           >
             {({ handleSubmit, errors, touched, setFieldValue }) => (
-              <Glassmorphism height={370}>
-                <Text style={styles.instruction}>
-                  Enter the OTP sent on mobile no 917XXXXXXX
-                </Text>
+              <Glassmorphism height={400}>
+                <View style={{}}>
+                  <Text style={styles.instruction}>
+                    Enter the OTP sent on mobile no 917XXXXXXX
+                  </Text>
+                </View>
+                <View style={{ marginVertical: "auto" }}>
+                  <Text style={styles.otpLabel}>Enter OTP</Text>
 
-                <Text style={styles.otpLabel}>Enter OTP</Text>
+                  <OtpInput
+                    numberOfDigits={6}
+                    type="numeric"
+                    secureTextEntry={false}
+                    onTextChange={(text) => {
+                      handleOtpChange(text);
+                      setFieldValue("otp", text);
+                    }}
+                    value={otp}
+                    keyboardType="number-pad"
+                    theme={{
+                      containerStyle: styles.otpContainer,
+                      inputsContainerStyle: styles.otpInputsContainer,
+                      pinCodeContainerStyle: styles.otpCell,
+                      pinCodeTextStyle: styles.otpText,
+                      focusStickStyle: styles.otpCellFocused,
+                    }}
+                  />
 
-                <OtpInput
-                  numberOfDigits={6}
-                  type="numeric"
-                  secureTextEntry={false}
-                  onTextChange={(text) => {
-                    handleOtpChange(text);
-                    setFieldValue("otp", text);
-                  }}
-                  value={otp}
-                  keyboardType="number-pad"
-                  theme={{
-                    containerStyle: styles.otpContainer,
-                    inputsContainerStyle: styles.otpInputsContainer,
-                    pinCodeContainerStyle: styles.otpCell,
-                    pinCodeTextStyle: styles.otpText,
-                    focusStickStyle: styles.otpCellFocused,
-                  }}
-                />
+                  {touched.otp && errors.otp && (
+                    <Text style={styles.errorText}>{errors.otp}</Text>
+                  )}
 
-                {touched.otp && errors.otp && (
-                  <Text style={styles.errorText}>{errors.otp}</Text>
-                )}
-
-                {/* <TouchableOpacity
-                  style={styles.loginButton}
-                  onPress={() => handleSubmit()}
-                >
-                  <Text style={styles.loginButtonText}>Login</Text>
-                </TouchableOpacity> */}
-
-                {/* <View style={{ marginBottom: 15 }}> */}
-                <CommonButton
-                  title={"Login"}
-                  // onPress={handleSubmit}
-                  onPress={() => {
-                    navigation.navigate("Dashboard");
-                  }}
-                  width={"100%"}
-                />
-                {/* </View> */}
+                  <CommonButton
+                    title={"Login"}
+                    // onPress={handleSubmit}
+                    onPress={() => {
+                      navigation.navigate("Dashboard");
+                    }}
+                    width={"100%"}
+                  />
+                </View>
               </Glassmorphism>
             )}
           </Formik>
@@ -191,8 +185,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   instruction: {
-    color: "#999",
-    marginBottom: 20,
+    color: "#FFFFFF",
+    // marginBottom: "auto",
+    textAlign: "center",
+    fontSize: 12,
+    marginTop: 20,
   },
   otpLabel: {
     fontSize: 14,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   StatusBar,
   Platform,
+  KeyboardAvoidingView,
 } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -25,92 +26,124 @@ const validationSchema = Yup.object().shape({
 });
 
 const LoginScreen = ({ navigation }) => {
+  const [focusInput, setFocusInput] = useState(false);
+
   return (
-    <>
-      <StatusBar barStyle="light-content" />
-      <SafeAreaView style={styles.safeArea}>
-        <View style={styles.content}>
-          <View style={{ justifyContent: "center", marginTop: 50 }}>
-            <Text style={styles.title}>Login</Text>
-            <Text style={styles.subtitle}>
-              Please enter your details to Login
-            </Text>
-          </View>
-          <Formik
-            initialValues={{ username: "" }}
-            validationSchema={validationSchema}
-            onSubmit={(values) => {
-              // Here you would handle the submission
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.content}>
+        <View style={{ justifyContent: "center", marginTop: 50 }}>
+          <Text style={styles.title}>Login</Text>
+          <Text style={styles.subtitle}>
+            Please enter your details to Login
+          </Text>
+        </View>
+        <Formik
+          initialValues={{ username: "" }}
+          validationSchema={validationSchema}
+          onSubmit={(values) => {
+            // Here you would handle the submission
 
-              if (values) navigation.navigate("OTPScreen");
-              console.log(values.username);
-            }}
-          >
-            {({
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              values,
-              errors,
-              touched,
-            }) => (
-              <Glassmorphism height={370}>
-                <Text style={styles.below}>
-                  Enter your username or mobile no below
-                </Text>
-                <Text style={styles.inputLabel}>Username / Mobile No.</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Username/ Mobile No"
-                  placeholderTextColor="#666"
-                  value={values.username}
-                  onChangeText={handleChange("username")}
-                  onBlur={handleBlur("username")}
-                />
-                {errors.username && touched.username && (
-                  <Text style={styles.errorText}>{errors.username}</Text>
-                )}
-                {/* <TouchableOpacity
-                  style={styles.sendOtpButton}
+            if (values) navigation.navigate("OTPScreen");
+            console.log(values.username);
+          }}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            touched,
+          }) => (
+            <Glassmorphism height={400}>
+              <Text style={styles.below}>
+                Enter your username or mobile no below
+              </Text>
+              <Text style={styles.inputLabel}>Username / Mobile No.</Text>
+              <TextInput
+                style={[
+                  styles.input,
+                  { borderColor: focusInput ? "#fff" : "#ffffff10" },
+                ]}
+                value={values.username}
+                onChangeText={handleChange("username")}
+                onBlur={() => {
+                  handleBlur("username");
+                  setFocusInput(false);
+                }}
+                onFocus={() => {
+                  setFocusInput(true);
+                }}
+              />
+              {errors.username && touched.username && (
+                <Text style={styles.errorText}>{errors.username}</Text>
+              )}
+              <View style={{ marginBottom: 15 }}>
+                <CommonButton
+                  title={"Send OTP"}
                   onPress={handleSubmit}
-                >
-                  <Text style={styles.sendOtpText}>Send OTP</Text>
-                </TouchableOpacity> */}
-                <View style={{ marginBottom: 15 }}>
-                  <CommonButton
-                    title={"Send OTP"}
-                    onPress={handleSubmit}
-                    width={"100%"}
-                  />
-                </View>
+                  width={"100%"}
+                />
+              </View>
 
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("OTPScreen");
+                }}
+                style={styles.googleButton}
+              >
+                <Text style={styles.googleButtonText}>Login Via Google</Text>
+              </TouchableOpacity>
+
+              <View style={styles.notRegisterContainer}>
+                <Text style={styles.subtitleNot}>Not a registered user?</Text>
                 <TouchableOpacity
                   onPress={() => {
-                    navigation.navigate("OTPScreen");
+                    navigation.navigate("SignUpScreen");
                   }}
-                  style={styles.googleButton}
                 >
-                  <Text style={styles.googleButtonText}>Login Via Google</Text>
+                  <Text style={styles.createAccount}>Create an account</Text>
                 </TouchableOpacity>
-              </Glassmorphism>
-            )}
-          </Formik>
-
+              </View>
+            </Glassmorphism>
+          )}
+        </Formik>
+        <KeyboardAvoidingView behavior="position" style={styles.skipButton}>
           <TouchableOpacity style={styles.skipButton}>
             <Text style={styles.skipButtonText}>Skip for now ≫</Text>
           </TouchableOpacity>
-        </View>
-      </SafeAreaView>
-    </>
+        </KeyboardAvoidingView>
+      </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  notRegisterContainer: {
+    flexDirection: "row",
+    marginTop: "5%",
+    justifyContent: "center",
+    alignItems:"center",
+    gap: 5,
   },
+
+  subtitleNot: {
+    fontSize: 12,
+    fontWeight: "300",
+    lineHeight: 15,
+    color: "#017482",
+  },
+
+  createAccount: {
+    fontSize: 14,
+    fontWeight: "400",
+    lineHeight: 18,
+    color: "#ffffff",
+  },
+
   safeArea: {
     flex: 1,
+    zIndex: 1,
   },
   content: {
     flex: 1,
@@ -118,15 +151,15 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   title: {
-    fontSize: 32,
+    fontSize: 24,
     fontWeight: "600",
     color: "#fff",
     textAlign: "center",
     marginTop: 60,
   },
   subtitle: {
-    fontSize: 16,
-    color: "#999",
+    fontSize: 12,
+    color: "#A1A1A1",
     textAlign: "center",
     marginTop: 8,
     marginBottom: 40,
@@ -138,23 +171,26 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   inputLabel: {
-    color: "#999",
+    color: "#017482",
     marginBottom: 12,
   },
   below: {
-    color: "#999",
+    color: "#ffffff",
     marginBottom: 35,
     fontSize: 12,
+    textAlign: "center",
   },
   input: {
     height: 50,
     borderWidth: 1,
-    borderColor: "#666",
+    borderColor: "#ffffff10",
     borderRadius: 25,
     color: "#fff",
     paddingHorizontal: 20,
     marginBottom: 20,
+    backgroundColor: "#ffffff10",
   },
+
   sendOtpButton: {
     backgroundColor: "#95c11f",
     height: 50,
@@ -174,10 +210,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderWidth: 1,
-    borderColor: "#666",
+    borderColor: "#017482",
   },
   googleButtonText: {
-    color: "#fff",
+    color: "#017482",
     fontSize: 16,
   },
   skipButton: {
