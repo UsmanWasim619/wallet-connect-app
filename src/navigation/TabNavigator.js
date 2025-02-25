@@ -5,27 +5,23 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View, Text, Dimensions, Image } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import Svg, { ClipPath, Defs, G, Path, Rect } from "react-native-svg";
-import CustomHeaderForTabNavigation from "./CustomHeaderForTabNavigation";
 import WatchlistScreen from "../screens/WatchLists/Screen/WatchlistScreen";
 import ExploreIndicesStackNavigation from "../screens/ExploreIndicesScreen/ExploreIndicesStackNavigation";
 import NewsStackNavigation from "../screens/News/NewsStackNavigation";
 import IndicesDetailsScreen from "../screens/ExploreIndicesScreen/Screen/IndicesDetailsScreen";
+import { BlurView } from "expo-blur";
 
 const { width } = Dimensions.get("window");
 const TAB_WIDTH = width / 4;
 
-// Progress Bar Component
-const ProgressBar = () => (
-  <View style={styles.progressContainer}>
-    <View style={styles.progressBar} />
-  </View>
-);
-
 // Custom Tab Bar Component
 const CustomTabBar = ({ state, descriptors, navigation }) => {
   return (
-    <View style={styles.tabBarContainer}>
-      <ProgressBar />
+    <BlurView
+      tint="systemUltraThinMaterialDark"
+      intensity={100}
+      style={styles.tabBarContainer}
+    >
       <View style={styles.tabBar}>
         {state.routes.map((route, index) => {
           const { options } = descriptors[route.key];
@@ -54,13 +50,13 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
                   onTouchEnd={onPress}
                 >
                   {options.tabBarIcon({
-                    color: isFocused ? "#80A416" : "#666",
+                    color: isFocused ? "#01A3B6" : "#666",
                     size: 24,
                   })}
                   <Text
                     style={[
                       styles.tabLabel,
-                      { color: isFocused ? "#80A416" : "#666" },
+                      { color: isFocused ? "#01A3B6" : "#666" },
                     ]}
                   >
                     {route.name}
@@ -79,7 +75,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
           );
         })}
       </View>
-    </View>
+    </BlurView>
   );
 };
 
@@ -98,7 +94,6 @@ const TabsNavigations = () => {
   console.log("showHeader: ", showHeader);
   return (
     <>
-      <StatusBar style="light" />
       <Tab.Navigator
         tabBar={(props) => <CustomTabBar {...props} />}
         screenOptions={{
@@ -111,7 +106,6 @@ const TabsNavigations = () => {
           component={ExploreIndicesStackNavigation}
           options={{
             tabBarIcon: ({ color }) => {
-            
               return (
                 <Svg
                   width={24}
@@ -141,7 +135,6 @@ const TabsNavigations = () => {
           component={WatchlistScreen}
           options={{
             tabBarIcon: ({ color }) => {
-            
               return <Feather name="bookmark" size={24} color={color} />;
             },
           }}
@@ -161,7 +154,6 @@ const TabsNavigations = () => {
           component={NewsStackNavigation}
           options={{
             tabBarIcon: ({ color }) => {
-         
               return <Feather name="message-circle" size={24} color={color} />;
             },
           }}
@@ -187,7 +179,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: "#000000",
+    backgroundColor: "#002430",
   },
   progressContainer: {
     height: 2,
@@ -201,7 +193,7 @@ const styles = StyleSheet.create({
   },
   tabBar: {
     flexDirection: "row",
-    height: 60,
+    height: 70,
   },
   tabItem: {
     flex: 1,
@@ -226,9 +218,9 @@ const styles = StyleSheet.create({
     top: -1,
     width: 60,
     height: 3,
-    backgroundColor: "#80A416",
+    backgroundColor: "#01A3B6",
     borderRadius: 2,
-    boxShadow: `0 21px 60px -40px  #80A416`,
+    boxShadow: `0 21px 60px -40px  #01A3B6`,
     borderBottomLeftRadius: 16,
     borderBottomRightRadius: 16,
   },

@@ -131,7 +131,7 @@ const HomeScreen = ({ navigation }) => {
     <ScrollView>
       {/* Header */}
       {/* <CustomHeaderForTabNavigation navigation={navigation} showBack={false} /> */}
-      <View style={{ backgroundColor: "#000" }}>
+      <View >
         <View style={styles.topBar}>
           <View style={styles.topBarIcons}>
             <TouchableOpacity style={styles.iconButton}>

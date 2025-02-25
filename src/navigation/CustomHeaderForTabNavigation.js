@@ -98,7 +98,7 @@ const CustomHeaderForTabNavigation = ({ navigation, showBack = false }) => {
 
 const styles = StyleSheet.create({
   safeArea: {
-    backgroundColor: "#000",
+    // backgroundColor: "#000",
     justifyContent: "center",
     alignSelf: "center",
   },
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     height: 44,
     marginTop: 20,
     width: "100%",
-    backgroundColor: "#00000000",
+    // backgroundColor: "#00000000",
   },
   topBarIcons: {
     flexDirection: "row",

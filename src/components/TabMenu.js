@@ -1,113 +1,3 @@
-// import React, { useState, useRef } from "react";
-// import {
-//   StyleSheet,
-//   View,
-//   Text,
-//   ScrollView,
-//   TouchableOpacity,
-//   Dimensions,
-// } from "react-native";
-// import HorizontalLine from "./HorizontalLine";
-
-// const { width } = Dimensions.get("window");
-
-// export default function TabMenu({
-//   data = ["GAINERS", "52W HIGH", "ALL", "52W LOW", "TOP LOSERS"],
-//   selected = "ALL",
-// }) {
-//   const [selectedTab, setSelectedTab] = useState(selected);
-//   const tabs = ["GAINERS", "52W HIGH", "ALL", "52W LOW", "TOP LOSERS"];
-//   const scrollViewRef = useRef(null);
-//   const tabRefs = useRef([]);
-
-//   const handleTabPress = (tab, index) => {
-//     setSelectedTab(tab);
-
-//     // Scroll to the selected tab
-//     tabRefs.current[index]?.measureLayout(scrollViewRef.current, (x) => {
-//       scrollViewRef.current.scrollTo({
-//         x: x - width / 3 + 40, // Adjust for centering
-//         animated: true,
-//       });
-//     });
-//   };
-
-//   return (
-//     <View style={styles.container}>
-//       <HorizontalLine />
-//       <View style={styles.tabsContainer}>
-//         <ScrollView
-//           ref={scrollViewRef}
-//           horizontal
-//           showsHorizontalScrollIndicator={false}
-//           contentContainerStyle={styles.scrollContent}
-//         >
-//           {data.map((tab, index) => (
-//             <TouchableOpacity
-//               key={tab}
-//               ref={(el) => (tabRefs.current[index] = el)}
-//               onPress={() => handleTabPress(tab, index)}
-//               style={styles.tabButton}
-//             >
-//               <Text
-//                 style={[
-//                   styles.tabText,
-//                   selectedTab === tab && styles.selectedTabText,
-//                 ]}
-//               >
-//                 {tab}
-//               </Text>
-//               {selectedTab === tab && <View style={styles.indicator} />}
-//             </TouchableOpacity>
-//           ))}
-//         </ScrollView>
-//       </View>
-//       <HorizontalLine />
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     height: 60,
-//   },
-//   tabsContainer: {
-//     flex: 1,
-//     justifyContent: "center",
-//     alignItems: "center",
-//   },
-//   scrollContent: {
-//     paddingTop: 3,
-//     // paddingHorizontal: 10,
-//     // width: 1000,
-//   },
-//   tabButton: {
-//     paddingVertical: 12,
-//     paddingHorizontal: 20,
-//     position: "relative",
-//     alignItems: "center",
-//     minWidth: 100,
-//   },
-//   tabText: {
-//     color: "#FFFFFF",
-//     fontSize: 15,
-//     fontWeight: "400",
-//   },
-//   selectedTabText: {
-//     color: "#FFFFFF",
-//     fontSize: 20,
-//     fontWeight: "600",
-//   },
-//   indicator: {
-//     position: "absolute",
-//     bottom: 0,
-//     left: 10,
-//     right: 10,
-//     height: 2,
-//     backgroundColor: "#8DC63F",
-//     borderRadius: 1,
-//   },
-// });
 import { useState, useRef, memo } from "react";
 import {
   StyleSheet,
@@ -128,7 +18,7 @@ export default function TabMenu({
   selected = "ALL",
 }) {
   const [selectedTab, setSelectedTab] = useState(selected);
-  console.log("selectedTab: ", selectedTab);
+
   const scrollViewRef = useRef(null);
   const [scrollX] = useState(new Animated.Value(0));
 
@@ -243,12 +133,12 @@ const styles = StyleSheet.create({
     left: 10,
     right: 10,
     height: 2,
-    backgroundColor: "#80A416",
-    shadowColor: "#80A416",
+    backgroundColor: "#01A3B6",
+    shadowColor: "#01A3B6",
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 1,
     shadowRadius: 10,
     borderRadius: 1,
-    boxShadow: `0 -5px 40px 10px  #80A416`,
+    boxShadow: `0 -5px 40px 10px  #01A3B6`,
   },
 });
