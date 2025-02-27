@@ -1,91 +1,107 @@
-import { useState, useRef, memo } from "react";
+import React from "react";
 import {
-  StyleSheet,
   View,
-  Dimensions,
-  Animated,
-  TouchableOpacity,
   Text,
+  TouchableOpacity,
+  StyleSheet,
+  Animated,
+  Dimensions,
 } from "react-native";
+import { connect } from "react-redux";
 import HorizontalLine from "./HorizontalLine";
-import { useDispatch } from "react-redux";
 
 const { width } = Dimensions.get("window");
 const ITEM_WIDTH = 100;
 
-export default function TabMenu({
-  data = ["GAINERS", "52W HIGH", "ALL", "52W LOW", "TOP LOSERS"],
-  selected = "ALL",
-}) {
-  const [selectedTab, setSelectedTab] = useState(selected);
 
-  const scrollViewRef = useRef(null);
-  const [scrollX] = useState(new Animated.Value(0));
+class TabMenu extends React.Component {
+  constructor(props) {
+    super(props);
+    this.scrollViewRef = React.createRef();
+    this.scrollX = new Animated.Value(0);
+    // Add a flag to prevent double updates
+    this.isUpdatingFromTab = false;
+  }
 
-  const dispatch = useDispatch();
+  componentDidUpdate(prevProps) {
+    // Only update scroll position if the change came from Swiper (not from tab press)
+    if (
+      prevProps.selectedTab !== this.props.selectedTab &&
+      !this.isUpdatingFromTab
+    ) {
+      this.scrollToSelectedTab();
+    }
+    // Reset the flag after the update
+    this.isUpdatingFromTab = false;
+  }
 
-  const handleTabPress = (tab, index) => {
-    setSelectedTab(tab);
-    dispatch({ type: "SET_SELECTED_TAB", payload: tab });
+  scrollToSelectedTab = () => {
+    const { selectedTab } = this.props;
+    const data = ["NIFTY", "INDIAVIX", "FINNIFTY", "MIDCPNIFTY", "SENSEX"];
 
-    const newScrollPosition = index * ITEM_WIDTH - width / 2 + ITEM_WIDTH / 2;
-    scrollViewRef.current?.scrollTo({ x: newScrollPosition, animated: true });
-  };
+    if (selectedTab !== null && selectedTab < data.length) {
+      const newScrollPosition =
+        selectedTab * ITEM_WIDTH - width / 2 + ITEM_WIDTH / 2;
 
-  const handleScroll = Animated.event(
-    [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-    { useNativeDriver: false }
-  );
+      Animated.timing(this.scrollX, {
+        toValue: newScrollPosition,
+        duration: 300,
+        useNativeDriver: false,
+      }).start();
 
-  const handleScrollEnd = (event) => {
-    const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
-    if (contentOffset.x <= 0) {
-      scrollViewRef.current?.scrollTo({
-        x: contentSize.width / 3,
-        animated: false,
-      });
-    } else if (contentOffset.x + layoutMeasurement.width >= contentSize.width) {
-      scrollViewRef.current?.scrollTo({
-        x: contentSize.width / 3,
-        animated: false,
-      });
+      if (this.scrollViewRef.current) {
+        this.scrollViewRef.current.scrollTo({
+          x: newScrollPosition,
+          animated: true,
+        });
+      }
     }
   };
 
-  const renderTabs = () => {
-    const extendedData = [...data, ...data, ...data];
-    return extendedData.map((tab, index) => (
+  handleTabPress = (tab) => {
+    const data = ["NIFTY", "INDIAVIX", "FINNIFTY", "MIDCPNIFTY", "SENSEX"];
+    const index = data.indexOf(tab);
+    if (index !== -1) {
+      // Set the flag before updating Redux
+      this.isUpdatingFromTab = true;
+      this.props.setSelectedTab(index);
+    }
+  };
+
+  renderTabs = () => {
+    const data = ["NIFTY", "INDIAVIX", "FINNIFTY", "MIDCPNIFTY", "SENSEX"];
+    return data.map((tab, index) => (
       <TabItem
         key={`${tab}-${index}`}
         tab={tab}
-        isSelected={selectedTab === tab}
-        onPress={() => handleTabPress(tab, index)}
+        isSelected={this.props.selectedTab === index}
+        onPress={() => this.handleTabPress(tab)}
       />
     ));
   };
 
-  return (
-    <View style={styles.container}>
-      <HorizontalLine />
-      <View style={styles.tabsContainer}>
-        <Animated.ScrollView
-          ref={scrollViewRef}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.scrollContent}
-          onScroll={handleScroll}
-          scrollEventThrottle={16}
-          onMomentumScrollEnd={handleScrollEnd}
-        >
-          {renderTabs()}
-        </Animated.ScrollView>
+  render() {
+    return (
+      <View style={styles.container}>
+        <HorizontalLine />
+        <View style={styles.tabsContainer}>
+          <Animated.ScrollView
+            ref={this.scrollViewRef}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.scrollContent}
+            scrollEventThrottle={16}
+          >
+            {this.renderTabs()}
+          </Animated.ScrollView>
+        </View>
+        <HorizontalLine />
       </View>
-      <HorizontalLine />
-    </View>
-  );
+    );
+  }
 }
 
-const TabItem = memo(({ tab, isSelected, onPress }) => {
+const TabItem = React.memo(({ tab, isSelected, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.tabButton}>
       <Text style={[styles.tabText, isSelected && styles.selectedTabText]}>
@@ -97,6 +113,43 @@ const TabItem = memo(({ tab, isSelected, onPress }) => {
 });
 
 const styles = StyleSheet.create({
+  // container: {
+  //   backgroundColor: "#fff",
+  // },
+  // horizontalLine: {
+  //   height: 1,
+  //   backgroundColor: "#E0E0E0",
+  //   width: "100%",
+  // },
+  // tabsContainer: {
+  //   height: 50,
+  // },
+  // scrollContent: {
+  //   alignItems: "center",
+  // },
+  // tabButton: {
+  //   width: ITEM_WIDTH,
+  //   height: 50,
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  //   position: "relative",
+  // },
+  // tabText: {
+  //   fontSize: 14,
+  //   color: "#666",
+  // },
+  // selectedTabText: {
+  //   color: "#000",
+  //   fontWeight: "bold",
+  // },
+  // indicator: {
+  //   position: "absolute",
+  //   bottom: 0,
+  //   height: 3,
+  //   width: 40,
+  //   backgroundColor: "#000",
+  //   borderRadius: 3,
+  // },
   container: {
     height: 65,
   },
@@ -142,3 +195,14 @@ const styles = StyleSheet.create({
     boxShadow: `0 -5px 40px 10px  #01A3B6`,
   },
 });
+
+const mapStateToProps = (state) => ({
+  selectedTab: state.tabMenu.selectedTab, // Redux state
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setSelectedTab: (index) =>
+    dispatch({ type: "SET_SELECTED_TAB", payload: index }),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TabMenu);

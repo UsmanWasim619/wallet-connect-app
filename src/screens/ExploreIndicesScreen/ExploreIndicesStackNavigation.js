@@ -6,6 +6,7 @@ import { AllIndicesScreen } from "./Screen/AllIncicesScreen";
 import IndicesDetailsScreen from "./Screen/IndicesDetailsScreen";
 import StocksListScreen from "./Screen/StockListScreen";
 import SuperStarUserScreen from "../SuperStarUser/Screen/SuperStarUserScreen";
+import ProgressBarIndicesScreen from "../ProgressBarIndicesScreen";
 
 const stack = createNativeStackNavigator();
 
@@ -33,6 +34,11 @@ const ExploreIndicesStackNavigation = ({ navigation }) => {
         animation: "slide_from_right",
       }}
     >
+      <stack.Screen
+        name="ProgressBarIndicesScreen"
+        component={ProgressBarIndicesScreen}
+      />
+
       <stack.Screen name="DiscoverScreen" component={HomeMainScreen} />
       <stack.Screen name="AllIndicesScreen" component={AllIndicesScreen} />
       <stack.Screen

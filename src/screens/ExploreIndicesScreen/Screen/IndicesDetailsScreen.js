@@ -65,7 +65,7 @@ const IndicesDetailsScreen = () => {
   `;
 
   const grayPath2 = `
-    M ${SCREEN_WIDTH * 0.10 + 40},0
+    M ${SCREEN_WIDTH * 0.1 + 40},0
     C ${SCREEN_WIDTH * 0.7 + 40},${SCREEN_HEIGHT * 0.375}
       ${SCREEN_WIDTH * 0.6 + 30},${SCREEN_HEIGHT * 0.6875}
       ${SCREEN_WIDTH * 0.19 + 40},${SCREEN_HEIGHT}`;
@@ -83,6 +83,8 @@ const IndicesDetailsScreen = () => {
           stroke="url(#gradient1)"
           strokeWidth="13"
           fill="none"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           animatedProps={animatedProps1}
         />
         <Path d={grayPath1} stroke="#A1A1A157" strokeWidth="1" fill="none" />
@@ -91,6 +93,8 @@ const IndicesDetailsScreen = () => {
           stroke="#01A2CB"
           strokeWidth="13"
           fill="none"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           animatedProps={animatedProps2}
         />
         <Path d={grayPath2} stroke="#A1A1A157" strokeWidth="1" fill="none" />
