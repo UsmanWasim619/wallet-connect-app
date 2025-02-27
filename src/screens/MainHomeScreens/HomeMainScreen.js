@@ -131,7 +131,7 @@ const HomeScreen = ({ navigation }) => {
     <ScrollView>
       {/* Header */}
       {/* <CustomHeaderForTabNavigation navigation={navigation} showBack={false} /> */}
-      <View >
+      <View>
         <View style={styles.topBar}>
           <View style={styles.topBarIcons}>
             <TouchableOpacity style={styles.iconButton}>
@@ -152,64 +152,8 @@ const HomeScreen = ({ navigation }) => {
 
       {/* MainSvg */}
 
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "5%",
-          flex: 1,
-        }}
-      >
-        <View
-          style={{
-            justifyContent: "center",
-            alignContent: "center",
-            marginVertical: "10%",
-          }}
-        >
-          <Text
-            style={{
-              textAlign: "center",
-              fontSize: 20,
-              fontWeight: "500",
-              color: "#ffffff",
-            }}
-          >
-            Explore Indices
-          </Text>
-        </View>
+      <DiscoverComponent navigation={navigation} />
 
-        <DiscoverComponent navigation={navigation} />
-
-        <View
-          style={{
-            justifyContent: "center",
-            alignContent: "center",
-            marginVertical: "24%",
-            flexDirection: "row",
-            alignItems: "center",
-            gap: 5,
-          }}
-        >
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("AllIndicesScreen");
-            }}
-          >
-            <Text
-              style={{
-                textAlign: "center",
-                fontSize: 16,
-                fontWeight: "400",
-                color: "#ffffff57",
-              }}
-            >
-              View all
-            </Text>
-          </TouchableOpacity>
-          <AntDesign name="right" size={14} color="#ffffff57" />
-        </View>
-      </View>
       {/* MainSvg end */}
       <View style={{ flex: 1 }}>
         <HotDealsComponent navigation={navigation} />

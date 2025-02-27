@@ -1,5 +1,13 @@
-import { useEffect, useState } from "react";
-import { View } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  Dimensions,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import Svg, {
   Circle,
   ClipPath,
@@ -14,41 +22,205 @@ import Svg, {
   Stop,
   Use,
 } from "react-native-svg";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
+import Swiper from "react-native-deck-swiper";
+import { AntDesign } from "@expo/vector-icons";
 
-const DiscoverComponent = ({ selectedTab }) => {
-  console.log("selectedTab: ", selectedTab);
-  const [showSVG, setSVG] = useState(Final);
+class DiscoverComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.swiperRef = React.createRef();
+    this.isUpdatingFromSwipe = false;
+  }
 
-  // "NIFTY", "INDIAVIX", "FINNIFTY", "MIDCPNIFTY", "SENSEX";
-  useEffect(() => {
-    switch (selectedTab) {
-      case "NIFTY":
-        setSVG(BANKNIFTY);
-        break;
-      case "INDIAVIX":
-        setSVG(IndiaVIX);
-
-        break;
-      case "FINNIFTY":
-        setSVG(Finifty);
-
-        break;
-      case "MIDCPNIFTY":
-        setSVG(MIDCPNIFTY);
-
-        break;
-      case "SENSEX":
-        setSVG(Sensex);
-
-        break;
+  componentDidUpdate(prevProps) {
+    // Only update if the change came from TabMenu (not from swipe)
+    if (
+      prevProps.selectedTab !== this.props.selectedTab &&
+      !this.isUpdatingFromSwipe
+    ) {
+      if (this.swiperRef.current) {
+        this.swiperRef.current.jumpToCardIndex(this.props.selectedTab);
+      }
     }
-  }, [selectedTab]);
+    // Reset the flag after the update
+    this.isUpdatingFromSwipe = false;
+  }
 
-  return showSVG;
+  // Component mapping for cleaner renderCard function
+  indexComponents = {
+    0: BANKNIFTY,
+    1: IndiaVIX,
+    2: Finifty,
+    3: MIDCPNIFTY,
+    4: Sensex,
+    default: Final,
+  };
+
+  renderCard = (card, idx) => {
+    const { selectedTab } = this.props;
+    const Component =
+      this.indexComponents[selectedTab] || this.indexComponents.default;
+    return <Component />;
+  };
+
+  onSwiped = (cardIndex) => {
+    // Set the flag before updating Redux
+    this.isUpdatingFromSwipe = true;
+    this.props.dispatch({ type: "SET_SELECTED_TAB", payload: cardIndex });
+  };
+
+  navigateToAllIndices = () => {
+    // Assuming navigation is passed as a prop
+    this.props.navigation.navigate("AllIndicesScreen");
+  };
+
+  render() {
+    const data = ["NIFTY", "INDIAVIX", "FINNIFTY", "MIDCPNIFTY", "SENSEX"];
+
+    return (
+      <View style={styles.mainContainer}>
+        {/* Header */}
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerText}>Explore Indices</Text>
+        </View>
+
+        {/* <View style={{ height: 400 }} /> */}
+        {/* Swiper Container */}
+        <View style={styles.swiperContainer}>
+          <Swiper
+            ref={this.swiperRef}
+            cards={data}
+            renderCard={this.renderCard}
+            onSwiped={this.onSwiped}
+            cardIndex={this.props.selectedTab}
+            onSwipedAll={() => {}}
+            infinite
+            backgroundColor="transparent"
+            verticalSwipe={false}
+            animateCardOpacity
+            cardStyle={styles.card}
+            containerStyle={styles.swiperContainerStyle}
+          />
+        </View>
+
+        {/* Footer */}
+        <View style={styles.footerContainer}>
+          <TouchableOpacity onPress={this.navigateToAllIndices}>
+            <Text style={styles.viewAllText}>View all</Text>
+          </TouchableOpacity>
+          <AntDesign name="right" size={14} color="#ffffff57" />
+        </View>
+      </View>
+    );
+  }
+}
+
+// Styles
+const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+  },
+  headerContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: "5%",
+    marginBottom: "5%",
+  },
+  headerText: {
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "500",
+    color: "#ffffff",
+  },
+  swiperContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    height: 555,
+  },
+  swiperContainerStyle: {
+    justifyContent: "center",
+    alignItems: "center",
+    height: 400,
+  },
+  card: {
+    height: 400,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  footerContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginVertical: 20,
+    gap: 5,
+  },
+  viewAllText: {
+    textAlign: "center",
+    fontSize: 16,
+    fontWeight: "400",
+    color: "#ffffff57",
+  },
+  // Card content styles preserved
+  image: {
+    width: "100%",
+    height: "70%",
+    borderRadius: 10,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginTop: 10,
+  },
+  description: {
+    fontSize: 14,
+    marginTop: 5,
+    color: "#555",
+  },
+  buttons: {
+    flexDirection: "row",
+    marginTop: 20,
+  },
+  button: {
+    padding: 15,
+    borderRadius: 8,
+    marginHorizontal: 10,
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+  },
+  labelLeft: {
+    color: "red",
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+  labelRight: {
+    color: "green",
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+  wrapper: {
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
+
+const mapStateToProps = (state) => {
+  return {
+    ...state?.tabMenu,
+  };
 };
 
-const BANKNIFTY = () => {
+export default connect(mapStateToProps)(DiscoverComponent);
+export const BANKNIFTY = () => {
   return (
     <Svg
       width={360}
@@ -157,7 +329,7 @@ const BANKNIFTY = () => {
   );
 };
 
-const IndiaVIX = () => {
+export const IndiaVIX = () => {
   return (
     <Svg
       width={370}
@@ -295,7 +467,7 @@ const IndiaVIX = () => {
   );
 };
 
-const Finifty = () => {
+export const Finifty = () => {
   return (
     <Svg
       width={384}
@@ -424,7 +596,7 @@ const Finifty = () => {
   );
 };
 
-const MIDCPNIFTY = () => {
+export const MIDCPNIFTY = () => {
   return (
     <Svg
       width={367}
@@ -560,7 +732,7 @@ const MIDCPNIFTY = () => {
   );
 };
 
-const Sensex = () => {
+export const Sensex = () => {
   return (
     <Svg width={371} height={358} viewBox="0 0 371 358" fill="none">
       <ForeignObject
@@ -876,7 +1048,7 @@ const Sensex = () => {
   );
 };
 
-const Final = () => {
+export const Final = () => {
   return (
     <Svg
       width={359}
@@ -1018,13 +1190,3 @@ const Final = () => {
     </Svg>
   );
 };
-
-const mapStateToProps = (state) => {
-  return {
-    ...state?.tabMenu,
-  };
-};
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(DiscoverComponent);

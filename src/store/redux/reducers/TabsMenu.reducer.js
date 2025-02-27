@@ -1,6 +1,6 @@
 const initialState = {
-  selectedTab: "",
-};
+  selectedTab: 0,
+}
 
 const tabMenuReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -8,10 +8,11 @@ const tabMenuReducer = (state = initialState, action) => {
       return {
         ...state,
         selectedTab: action.payload,
-      };
+      }
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default tabMenuReducer;
+export default tabMenuReducer
+
