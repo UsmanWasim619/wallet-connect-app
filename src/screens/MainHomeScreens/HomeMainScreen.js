@@ -126,7 +126,7 @@ const HomeScreen = ({ navigation }) => {
       change: "144.05 (+13.76%)",
     },
   ];
-  const mainTabs = ["NIFTY", "INDIAVIX", "FINNIFTY", "MIDCPNIFTY", "SENSEX"];
+  const mainTabs = ["AI-FUTURE"];
   return (
     <ScrollView>
       {/* Header */}
@@ -145,7 +145,7 @@ const HomeScreen = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </View>
-        <TabMenu data={mainTabs} selected={"FINNIFTY"} />
+        <TabMenu data={mainTabs} selected={"AI-FUTURE"} />
       </View>
 
       {/* Header end */}

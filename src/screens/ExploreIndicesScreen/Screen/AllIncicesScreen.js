@@ -28,20 +28,20 @@ export const AllIndicesScreen = ({ navigation }) => {
         width: "100%",
         ...StyleSheet.absoluteFill,
       }}
-      source={require("../../../../assets/Auth_Background.png")}
+      source={require("../../../../assets/png/auth-bg.png")}
     >
       <SafeAreaView style={styles.container}>
         <StatusBar style="light" />
 
         {/* Header */}
 
-        <CommonHeader screenName={"All Indices"} />
+        <CommonHeader screenName={"Tokens"} />
 
         {/* Navigation Tabs */}
 
         <TabMenu
-          data={["PERFORMANCE", "OVERVIEW", "RESEARCH"]}
-          selected={"OVERVIEW"}
+        // data={["PERFORMANCE", "OVERVIEW", "RESEARCH"]}
+        // selected={"OVERVIEW"}
         />
 
         {/* Content Card */}

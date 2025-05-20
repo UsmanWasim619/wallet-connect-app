@@ -13,7 +13,6 @@ import HorizontalLine from "./HorizontalLine";
 const { width } = Dimensions.get("window");
 const ITEM_WIDTH = 100;
 
-
 class TabMenu extends React.Component {
   constructor(props) {
     super(props);
@@ -37,7 +36,7 @@ class TabMenu extends React.Component {
 
   scrollToSelectedTab = () => {
     const { selectedTab } = this.props;
-    const data = ["NIFTY", "INDIAVIX", "FINNIFTY", "MIDCPNIFTY", "SENSEX"];
+    const data = ["AI-FUTURE"];
 
     if (selectedTab !== null && selectedTab < data.length) {
       const newScrollPosition =
@@ -59,7 +58,7 @@ class TabMenu extends React.Component {
   };
 
   handleTabPress = (tab) => {
-    const data = ["NIFTY", "INDIAVIX", "FINNIFTY", "MIDCPNIFTY", "SENSEX"];
+    const data = ["AI-FUTURE"];
     const index = data.indexOf(tab);
     if (index !== -1) {
       // Set the flag before updating Redux
@@ -69,7 +68,7 @@ class TabMenu extends React.Component {
   };
 
   renderTabs = () => {
-    const data = ["NIFTY", "INDIAVIX", "FINNIFTY", "MIDCPNIFTY", "SENSEX"];
+    const data = ["AI-FUTURE"];
     return data.map((tab, index) => (
       <TabItem
         key={`${tab}-${index}`}
@@ -113,43 +112,6 @@ const TabItem = React.memo(({ tab, isSelected, onPress }) => {
 });
 
 const styles = StyleSheet.create({
-  // container: {
-  //   backgroundColor: "#fff",
-  // },
-  // horizontalLine: {
-  //   height: 1,
-  //   backgroundColor: "#E0E0E0",
-  //   width: "100%",
-  // },
-  // tabsContainer: {
-  //   height: 50,
-  // },
-  // scrollContent: {
-  //   alignItems: "center",
-  // },
-  // tabButton: {
-  //   width: ITEM_WIDTH,
-  //   height: 50,
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  //   position: "relative",
-  // },
-  // tabText: {
-  //   fontSize: 14,
-  //   color: "#666",
-  // },
-  // selectedTabText: {
-  //   color: "#000",
-  //   fontWeight: "bold",
-  // },
-  // indicator: {
-  //   position: "absolute",
-  //   bottom: 0,
-  //   height: 3,
-  //   width: 40,
-  //   backgroundColor: "#000",
-  //   borderRadius: 3,
-  // },
   container: {
     height: 65,
   },
@@ -160,6 +122,8 @@ const styles = StyleSheet.create({
   scrollContent: {
     paddingTop: 3,
     // paddingHorizontal: width / 2 - ITEM_WIDTH / 2, // Ensure the first item can be centered
+    justifyContent: "center",
+    width: "100%",
   },
   tabButton: {
     paddingVertical: 12,

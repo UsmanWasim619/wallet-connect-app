@@ -6,10 +6,13 @@ import { StyleSheet, View, Text, Dimensions, Image } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import Svg, { ClipPath, Defs, G, Path, Rect } from "react-native-svg";
 import WatchlistScreen from "../screens/WatchLists/Screen/WatchlistScreen";
-import ExploreIndicesStackNavigation from "../screens/ExploreIndicesScreen/ExploreIndicesStackNavigation";
+import ExploreIndicesStackNavigation, {
+  getTabBarVisibility,
+} from "../screens/ExploreIndicesScreen/ExploreIndicesStackNavigation";
 import NewsStackNavigation from "../screens/News/NewsStackNavigation";
 import IndicesDetailsScreen from "../screens/ExploreIndicesScreen/Screen/IndicesDetailsScreen";
 import { BlurView } from "expo-blur";
+import WalletScreen from "../screens/Wallet/WalletScreen";
 
 const { width } = Dimensions.get("window");
 const TAB_WIDTH = width / 4;
@@ -92,11 +95,13 @@ const TabsNavigations = () => {
   console.log("route.name: ", route.name);
   const [showHeader, setShowheader] = useState(false);
   console.log("showHeader: ", showHeader);
+
   return (
     <>
       <Tab.Navigator
         tabBar={(props) => <CustomTabBar {...props} />}
         screenOptions={{
+          
           headerShown: false,
           // header: () => <CustomHeaderForTabNavigation showBack={showHeader} />,
         }}
@@ -105,6 +110,7 @@ const TabsNavigations = () => {
           name="Discover"
           component={ExploreIndicesStackNavigation}
           options={{
+
             tabBarIcon: ({ color }) => {
               return (
                 <Svg
@@ -131,8 +137,8 @@ const TabsNavigations = () => {
           }}
         />
         <Tab.Screen
-          name="Watchlist"
-          component={WatchlistScreen}
+          name="My Wallet"
+          component={WalletScreen}
           options={{
             tabBarIcon: ({ color }) => {
               return <Feather name="bookmark" size={24} color={color} />;

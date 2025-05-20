@@ -7,8 +7,26 @@ import IndicesDetailsScreen from "./Screen/IndicesDetailsScreen";
 import StocksListScreen from "./Screen/StockListScreen";
 import SuperStarUserScreen from "../SuperStarUser/Screen/SuperStarUserScreen";
 import ProgressBarIndicesScreen from "../ProgressBarIndicesScreen";
+import TokenDetailScreen from "../MainHomeScreens/TokenDetailScreen";
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 
 const stack = createNativeStackNavigator();
+
+// Export this function so it can be used in TabsNavigations.js
+export const getTabBarVisibility = (route) => {
+  // Default to showing the tab bar if route.state is undefined
+  const routeName = getFocusedRouteNameFromRoute(route) ?? "DiscoverScreen";
+
+  // Add all routes where you want to hide the tab bar
+  const hideTabBarRoutes = [
+    "TokenScreen",
+    "IndicesDetailsScreen",
+    "SuperStarUserScreen",
+    "StocksListScreen",
+  ];
+
+  return !hideTabBarRoutes.includes(routeName);
+};
 
 const ExploreIndicesStackNavigation = ({ navigation }) => {
   const [resetNavigation, setResetNavigation] = useState();
@@ -26,6 +44,9 @@ const ExploreIndicesStackNavigation = ({ navigation }) => {
   //       };
   //     }, [resetNavigation])
   //   );
+
+
+  
   return (
     <stack.Navigator
       initialRouteName="DiscoverScreen"
@@ -40,6 +61,11 @@ const ExploreIndicesStackNavigation = ({ navigation }) => {
       />
 
       <stack.Screen name="DiscoverScreen" component={HomeMainScreen} />
+
+      
+      <stack.Screen name="TokenScreen" component={TokenDetailScreen} />
+
+
       <stack.Screen name="AllIndicesScreen" component={AllIndicesScreen} />
       <stack.Screen
         name="IndicesDetailsScreen"

@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     paddingHorizontal: 8,
     marginRight: 12,
-    backgroundColor: "rgba(0, 0, 0, 0)",
+    // backgroundColor: "rgba(0, 0, 0, 0)",
     overflow: "hidden",
     borderWidth: 1,
     borderColor: "#FCF7FD0D",

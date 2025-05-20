@@ -16,12 +16,12 @@ import { GradientHOC } from "../HOC/GradientHOC";
 const { width } = Dimensions.get("window");
 
 const CustomHeaderForTabNavigation = ({ navigation, showBack = false }) => {
-  const [activeMainTab, setActiveMainTab] = useState("FINNIFTY");
+  const [activeMainTab, setActiveMainTab] = useState("AI-FUTURE");
   const [activeSubTab, setActiveSubTab] = useState("OVERVIEW");
   const [showHeader, setShowHeader] = useState(showBack);
   console.log("showHeader:C ", showHeader);
 
-  const mainTabs = ["NIFTY", "INDIAVIX", "FINNIFTY", "MIDCPNIFTY", "SENSEX"];
+  const mainTabs = ["NIFTY", "INDIAVIX", "AI-FUTURE", "MIDCPNIFTY", "SENSEX"];
   const subTabs = ["PERFORMANCE", "OVERVIEW", "RESEARCH"];
 
   useEffect(() => {
@@ -91,7 +91,7 @@ const CustomHeaderForTabNavigation = ({ navigation, showBack = false }) => {
         {/* {!showHeader && renderTabs(mainTabs, activeMainTab, setActiveMainTab)} */}
         {/* {renderTabs(subTabs, activeSubTab, setActiveSubTab, false)} */}
       </View>
-      {!showHeader && <TabMenu data={mainTabs} selected={"FINNIFTY"} />}
+      {!showHeader && <TabMenu data={mainTabs} selected={"AI-FUTURE"} />}
     </SafeAreaView>
   );
 };
