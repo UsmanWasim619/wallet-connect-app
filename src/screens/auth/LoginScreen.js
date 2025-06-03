@@ -15,6 +15,8 @@ import * as Yup from "yup";
 import Glassmorphism from "../../components/Glassmorphism";
 import CommonButton from "../../components/CommonButton";
 import { GradientHOC } from "../../HOC/GradientHOC";
+import { useAppKit } from "@reown/appkit-wagmi-react-native";
+import { useAccount } from "wagmi";
 
 // Validation Schema
 const validationSchema = Yup.object().shape({
@@ -27,6 +29,9 @@ const validationSchema = Yup.object().shape({
 
 const LoginScreen = ({ navigation }) => {
   const [focusInput, setFocusInput] = useState(false);
+
+  const { open } = useAppKit();
+  const { isConnected } = useAccount();
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -95,6 +100,15 @@ const LoginScreen = ({ navigation }) => {
                 <Text style={styles.googleButtonText}>Login Via Google</Text>
               </TouchableOpacity>
 
+              <TouchableOpacity
+                onPress={() => {
+                  open();
+                }}
+                style={[styles.googleButton,{marginTop:10}]}
+              >
+                <Text style={styles.googleButtonText}>Connect wallet</Text>
+              </TouchableOpacity>
+
               <View style={styles.notRegisterContainer}>
                 <Text style={styles.subtitleNot}>Not a registered user?</Text>
                 <TouchableOpacity
@@ -123,7 +137,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: "5%",
     justifyContent: "center",
-    alignItems:"center",
+    alignItems: "center",
     gap: 5,
   },
 

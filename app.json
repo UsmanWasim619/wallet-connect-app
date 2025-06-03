@@ -1,36 +1,65 @@
 {
   "expo": {
-    "name": "trading-app",
+    "name": "Trading app",
     "slug": "trading-app",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.tradingapp"
+    "updates": {
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/2d3ad657-c612-4f65-ba0f-62c277388fa6"
     },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "owner": "ift",
+    "assetBundlePatterns": ["**/*"],
+    "plugins": ["./expo-plugins/installed-wallets.js"],
+
     "android": {
+      "versionCode": 1,
+      "package": "com.ift.tradingapp",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "com.anonymous.tradingapp"
+        "backgroundColor": "#FFFFFF"
+      }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "output": "single",
+      "bundler": "metro"
+    },
+    "experiments": {
+      "baseUrl": "."
     },
     "extra": {
       "eas": {
         "projectId": "b99ed193-498b-4815-86c4-40e8ba796ed9"
       }
     },
-    "owner": "ift"
+    "doctor": {
+      "reactNativeDirectoryCheck": {
+        "exclude": [
+          "@reown/appkit-wagmi-react-native",
+          "react-native-chart-kit",
+          "@babel/plugin-proposal-export-namespace-from",
+          "@reown/appkit-auth-wagmi-react-native",
+          "@tanstack/query-async-storage-persister",
+          "@tanstack/react-query-persist-client",
+          "@walletconnect/react-native-compat",
+          "uuid",
+          "viem",
+          "wagmi"
+        ],
+        "listUnknownPackages": false
+      }
+    }
   }
 }
